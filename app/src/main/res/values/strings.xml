@@ -16,4 +16,6 @@
     <string name="type">Type</string>
     <string name="keluar">Keluar</string>
     <string name="kembali">Kembali</string>
+    <string name="desc">Dapur Claraa\nMarmer Cake * Klappertaart\nOrder? H-1\nKLAPPERTAART*PUDING*MARMER CAKE\n100% HALAL</string>
+    <string name="detail_transaction">Memesan %1$s %2$s</string>
 </resources>

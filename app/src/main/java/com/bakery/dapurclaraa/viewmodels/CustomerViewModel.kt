@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bakery.dapurclaraa.database.objects.Customers
 import com.bakery.dapurclaraa.database.repository.CustomerRepository
+import com.bakery.dapurclaraa.database.repository.KueRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,6 +27,12 @@ class CustomerViewModel : ViewModel() {
         viewModelScope.launch {
             CustomerRepository.customerFlow.collect {
                 _customer.value = it
+                Log.d(TAG, "new _customer -> $it")
+            }
+        }
+        viewModelScope.launch {
+            CustomerRepository.customerListFlow.collect {
+                _customers.value = it
                 Log.d(TAG, "new _customer -> $it")
             }
         }
@@ -53,6 +60,19 @@ class CustomerViewModel : ViewModel() {
             } catch (e: Exception) {
                 // Handle exceptions if needed
                 Log.e("YourViewModel", "Error validateAdmin", e)
+            }
+        }
+    }
+
+    fun loadAll() {
+        viewModelScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    CustomerRepository.loadAll()
+                }
+            } catch (e: Exception) {
+                // Handle exceptions if needed
+                Log.e(TAG, "Error validateAdmin", e)
             }
         }
     }

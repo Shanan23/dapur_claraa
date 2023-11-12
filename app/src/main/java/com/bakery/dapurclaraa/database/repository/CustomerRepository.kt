@@ -8,8 +8,11 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 
 object CustomerRepository {
 
-    private val mCustomers = MutableSharedFlow<Customers>()
-    val customerFlow: Flow<Customers> = mCustomers
+    private val mCustomer = MutableSharedFlow<Customers>()
+    val customerFlow: Flow<Customers> = mCustomer
+
+    private val mCustomers = MutableSharedFlow<List<Customers>>()
+    val customerListFlow: Flow<List<Customers>> = mCustomers
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
@@ -22,7 +25,15 @@ object CustomerRepository {
     suspend fun validateCustomer(name: String, pass: String) {
         var customer = DapurClaraaApp.db.customersDao().validateCustomer(name, pass)
         if (customer == null) customer = Customers()
-        mCustomers.emit(customer)
+        mCustomer.emit(customer)
 //        return customer
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun loadAll() {
+        var customers = DapurClaraaApp.db.customersDao().getAll()
+        if (customers.isNullOrEmpty()) customers = listOf()
+        mCustomers.emit(customers)
     }
 }

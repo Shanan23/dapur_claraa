@@ -41,9 +41,9 @@ class MenuActivity : AppCompatActivity() {
         }
 
         val toListTypeActivity = Intent(this, ListTypeActivity::class.java)
-        val toProfileActivity = Intent(this, MenuActivity::class.java)
-        val toTransactionActivity = Intent(this, MenuActivity::class.java)
-        val toCustomerActivity = Intent(this, MenuActivity::class.java)
+        val toProfileActivity = Intent(this, ProfileActivity::class.java)
+        val toTransactionActivity = Intent(this, ListPemesananActivity::class.java)
+        val toCustomerActivity = Intent(this, ListCustomerActivity::class.java)
 
 
         cvMenuCakeType.setOnClickListener {

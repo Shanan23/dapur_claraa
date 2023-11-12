@@ -13,7 +13,7 @@ import com.bakery.dapurclaraa.database.objects.Customers
 import com.bakery.dapurclaraa.database.objects.Kue
 import com.bakery.dapurclaraa.database.objects.Pembayaran
 
-@Database(entities = [Admin::class, Customers::class, Kue::class, Pembayaran::class], version = 2)
+@Database(entities = [Admin::class, Customers::class, Kue::class, Pembayaran::class], version = 3)
 abstract class DapurClaraaDB : RoomDatabase() {
     abstract fun adminDao(): AdminDao
     abstract fun customersDao(): CustomersDao
