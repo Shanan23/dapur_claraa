@@ -18,4 +18,13 @@
     <string name="kembali">Kembali</string>
     <string name="desc">Dapur Claraa\nMarmer Cake * Klappertaart\nOrder? H-1\nKLAPPERTAART*PUDING*MARMER CAKE\n100% HALAL</string>
     <string name="detail_transaction">Memesan %1$s %2$s</string>
+    <string name="memesan">Memesan</string>
+    <string name="harga">Harga : %1$s</string>
+    <string name="ukuran">Ukuran : %1$s</string>
+    <string name="jenis">Jenis : %1$s</string>
+    <string name="pengiriman_dan_pembayaran">Pengiriman dan pembayaran</string>
+    <string name="pengiriman_regular">Pengiriman Regular</string>
+    <string name="cust_name_delivery">%1$s (%2$s)</string>
+    <string name="rp">Rp%1$s</string>
+    <string name="total_pembayaran_rp">Total Pembayaran : Rp%1$s</string>
 </resources>

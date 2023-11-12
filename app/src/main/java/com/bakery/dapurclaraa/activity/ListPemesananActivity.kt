@@ -42,11 +42,13 @@ class ListPemesananActivity : AppCompatActivity() {
             transactionList = it
 
             for (i in 1..transactionList.size) {
-                val cakeDetail = kueList.filter { it.cakeId == transactionList[i - 0].cakeId }
+                val cakeDetail = kueList.filter { it.cakeId == transactionList[i - 1].cakeId }
                 val customerDetail =
-                    customerList.filter { it.customerId == transactionList[i - 0].customerId }
-                transactionList[i - 1].kueDetail = cakeDetail.first()
-                transactionList[i - 1].customerDetail = customerDetail.first()
+                    customerList.filter { it.customerId == transactionList[i - 1].customerId }
+                if (!cakeDetail.isNullOrEmpty()) transactionList[i - 1].kueDetail =
+                    cakeDetail.first()
+                if (!customerDetail.isNullOrEmpty()) transactionList[i - 1].customerDetail =
+                    customerDetail.first()
             }
 
             listPemesananAdapter.submitList(it)

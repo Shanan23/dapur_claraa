@@ -3,6 +3,7 @@ package com.bakery.dapurclaraa.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.bakery.dapurclaraa.R
@@ -11,6 +12,9 @@ import com.bakery.dapurclaraa.helper.SharedPreferencesHelper
 class MenuActivity : AppCompatActivity() {
     private lateinit var toSplashActivity: Intent
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+
+    private var backPressedTime: Long = 0
+    private val threshold = 2000 // 2 seconds
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +72,18 @@ class MenuActivity : AppCompatActivity() {
             sharedPreferencesHelper.username = ""
 
             startActivity(toSplashActivity)
+        }
+    }
+
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - backPressedTime < threshold) {
+            // If the time difference is within the threshold, exit the app
+            super.onBackPressed()
+            finish()
+        } else {
+            // Display a toast indicating to press back again to exit
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
+            backPressedTime = System.currentTimeMillis()
         }
     }
 }

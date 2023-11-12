@@ -24,7 +24,7 @@ object AdminRepository {
     suspend fun validateAdmin(name: String, pass: String) {
         var admin = DapurClaraaApp.db.adminDao().validateAdmin(name, pass)
         if (admin == null) admin = Admin()
-//        mAdmin.emit(admin)
+        mAdmin.emit(admin)
 //        return admin
     }
 }

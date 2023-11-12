@@ -8,15 +8,18 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bakery.dapurclaraa.R
+import com.bakery.dapurclaraa.database.objects.Admin
 import com.bakery.dapurclaraa.database.objects.Kue
 import com.bakery.dapurclaraa.helper.SharedPreferencesHelper
 import com.bakery.dapurclaraa.helper.Utils
+import com.bakery.dapurclaraa.viewmodels.AdminViewModel
 import com.bakery.dapurclaraa.viewmodels.KueViewModel
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private lateinit var tvSplashVersion: TextView
     private val kueViewModel: KueViewModel by viewModels()
+    private val adminViewModel: AdminViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +31,9 @@ class SplashActivity : AppCompatActivity() {
 
         sharedPreferencesHelper = SharedPreferencesHelper(applicationContext)
         val toMenuActivity = Intent(this, MenuActivity::class.java)
-
+        toMenuActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        toMenuActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        toMenuActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         // Create an Intent to start the target activity
         val targetActivityIntent = Intent(this, LoginActivity::class.java)
 
@@ -36,7 +41,7 @@ class SplashActivity : AppCompatActivity() {
         val handler = Handler(Looper.getMainLooper())
 
         // Delay in milliseconds
-        val delayMillis = 3000L // 2 seconds
+        val delayMillis = 3000L
 
         handler.postDelayed({
             // Post the intent after the specified delay
@@ -48,6 +53,7 @@ class SplashActivity : AppCompatActivity() {
                     var kue: Kue
                     if (i < 6) {
                         kue = Kue(
+                            cakeId = i,
                             cakeType = "Klapertart",
                             cakeName = "Klapertart $i",
                             cakePrice = "5000",
@@ -59,6 +65,7 @@ class SplashActivity : AppCompatActivity() {
                         )
                     } else if (i in 6..10) {
                         kue = Kue(
+                            cakeId = i,
                             cakeType = "Cake",
                             cakeName = "Cake $i",
                             cakePrice = "6000",
@@ -70,6 +77,7 @@ class SplashActivity : AppCompatActivity() {
                         )
                     } else if (i in 11..15) {
                         kue = Kue(
+                            cakeId = i,
                             cakeType = "Marmer",
                             cakeName = "Marmer $i",
                             cakePrice = "7000",
@@ -81,6 +89,7 @@ class SplashActivity : AppCompatActivity() {
                         )
                     } else {
                         kue = Kue(
+                            cakeId = i,
                             cakeType = "Puding",
                             cakeName = "Puding $i",
                             cakePrice = "8000",
@@ -94,6 +103,12 @@ class SplashActivity : AppCompatActivity() {
                     listKue.add(kue)
 
                 }
+
+                var admin = Admin()
+                admin.adminName = "admin"
+                admin.adminPass = "12345"
+
+                adminViewModel.insertAdmin(admin)
 
                 kueViewModel.loadAllKue()
 

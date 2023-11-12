@@ -18,6 +18,7 @@ import com.bakery.dapurclaraa.helper.Utils
 import com.bakery.dapurclaraa.viewmodels.AdminViewModel
 import com.bakery.dapurclaraa.viewmodels.CustomerViewModel
 import com.google.android.material.textfield.TextInputEditText
+import com.google.gson.Gson
 
 class LoginActivity : AppCompatActivity() {
     private val TAG: String = "LoginActivity"
@@ -52,7 +53,9 @@ class LoginActivity : AppCompatActivity() {
         dbConnection = DapurClaraaDB.getDatabase(applicationContext)
         val toRegisterActivity = Intent(this, RegisterActivity::class.java)
         val toMenuActivity = Intent(this, MenuActivity::class.java)
-
+        toMenuActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        toMenuActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        toMenuActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         tvToRegister.setOnClickListener {
             startActivity(toRegisterActivity)
         }
@@ -93,7 +96,9 @@ class LoginActivity : AppCompatActivity() {
                 sharedPreferencesHelper.isAdmin = true
                 sharedPreferencesHelper.isLoggedIn = true
 
+                Log.d(TAG, "Login Admin success ${admin.adminName}")
 
+                startActivity(toMenuActivity)
             } else {
                 alertDialogHelper.showAlertDialog(
                     "Login gagal", "User tidak ditemukan"
@@ -107,10 +112,11 @@ class LoginActivity : AppCompatActivity() {
 
                 // Save data
                 sharedPreferencesHelper.username = customer.customerName
+                sharedPreferencesHelper.userObj = Gson().toJson(customer)
                 sharedPreferencesHelper.isAdmin = false
                 sharedPreferencesHelper.isLoggedIn = true
 
-                Log.d(TAG, "Login success ${customer.customerName}")
+                Log.d(TAG, "Login Customer success ${customer.customerName}")
 
                 startActivity(toMenuActivity)
             } else {

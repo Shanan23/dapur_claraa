@@ -4,6 +4,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activity.DetailKueActivity">
+
+    <TextView
+        android:id="@+id/tvCakeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Nama Kue"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivCake"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_dapur_claraa_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCakeName" />
+
+    <TextView
+        android:id="@+id/tvCakeType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Jenis Kue : xxxx"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/ivCake"
+        app:layout_constraintTop_toBottomOf="@id/tvCakeName" />
+
+    <TextView
+        android:id="@+id/tvCakePrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Harga Kue : xxxx"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/ivCake"
+        app:layout_constraintTop_toBottomOf="@id/tvCakeType" />
+
+    <TextView
+        android:id="@+id/tvCakeSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Ukuran Kue : xxxx"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/ivCake"
+        app:layout_constraintTop_toBottomOf="@id/tvCakePrice" />
+
+    <TextView
+        android:id="@+id/tvCakeOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Maks 3 pemesanan"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/quantityPicker"
+        app:layout_constraintStart_toEndOf="@id/ivCake"
+        app:layout_constraintTop_toTopOf="@id/quantityPicker" />
+
+    <NumberPicker
+        android:id="@+id/quantityPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/tvCakeOrder"
+        app:layout_constraintTop_toBottomOf="@id/tvCakeSize" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvBtnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardBackgroundColor="@color/blue"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/kembali"
+            android:textColor="@color/white" />
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvBtnOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardBackgroundColor="@color/blue"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/quantityPicker">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/memesan"
+            android:textColor="@color/white" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

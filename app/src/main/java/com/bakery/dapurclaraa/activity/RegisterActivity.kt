@@ -2,6 +2,9 @@ package com.bakery.dapurclaraa.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -16,8 +19,10 @@ import com.bakery.dapurclaraa.helper.SharedPreferencesHelper
 import com.bakery.dapurclaraa.helper.Utils
 import com.bakery.dapurclaraa.viewmodels.CustomerViewModel
 import com.google.android.material.textfield.TextInputEditText
+import com.google.gson.Gson
 
 class RegisterActivity : AppCompatActivity() {
+    private val TAG: String = "RegisterActivity"
     private lateinit var admin: Admin
     private lateinit var alertDialogHelper: AlertDialogHelper
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
@@ -46,10 +51,33 @@ class RegisterActivity : AppCompatActivity() {
         tvRegisterVersion.text = getString(R.string.version, version)
 
         dbConnection = DapurClaraaDB.getDatabase(applicationContext)
+        val handler = Handler(Looper.getMainLooper())
+
+        val delayMillis = 2000L
 
         sharedPreferencesHelper = SharedPreferencesHelper(applicationContext)
         alertDialogHelper = AlertDialogHelper(this)
         val toMenuActivity = Intent(this, MenuActivity::class.java)
+        toMenuActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        toMenuActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        toMenuActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        // Observe LiveData changes
+        customerViewModel.customer.observe(this) { customer ->
+            if (customer.customerName.isNotEmpty()) {
+
+                // Save data
+                sharedPreferencesHelper.username = customer.customerName
+                sharedPreferencesHelper.userObj = Gson().toJson(customer)
+                sharedPreferencesHelper.isAdmin = false
+                sharedPreferencesHelper.isLoggedIn = true
+
+                Log.d(TAG, "Registrasi success ${customer.customerName}")
+
+                startActivity(toMenuActivity)
+            } /*else {
+                alertDialogHelper.showAlertDialog("Registrasi gagal", "User tidak ditemukan")
+            }*/
+        }
 
         cvBtnRegister.setOnClickListener(View.OnClickListener {
             val valUser = tieRegisterUsername.text
@@ -90,7 +118,11 @@ class RegisterActivity : AppCompatActivity() {
                 customers
             )
 
-            startActivity(toMenuActivity)
+
+            handler.postDelayed({
+                customerViewModel.validateCustomer(valName.toString(), valPass.toString())
+            }, delayMillis)
+//            startActivity(toMenuActivity)
         })
     }
 }

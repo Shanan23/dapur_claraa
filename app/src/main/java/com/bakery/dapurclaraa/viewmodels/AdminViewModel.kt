@@ -31,6 +31,19 @@ class AdminViewModel : ViewModel() {
         }
     }
 
+    fun insertAdmin(admin: Admin) {
+        viewModelScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    AdminRepository.insert(admin)
+                }
+            } catch (e: Exception) {
+                // Handle exceptions if needed
+                Log.e("YourViewModel", "Error validateAdmin", e)
+            }
+        }
+    }
+
     fun validateAdmin(name: String, pass: String) {
         viewModelScope.launch {
             try {

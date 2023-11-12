@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bakery.dapurclaraa.R
 import com.bakery.dapurclaraa.database.objects.Kue
 
-class ListKueAdapter :
+class ListKueAdapter(private val kueItemClickListener: KueItemClickListener) :
     ListAdapter<Kue, DaftarKueViewHolder>(object : DiffUtil.ItemCallback<Kue>() {
 
         override fun areItemsTheSame(oldItem: Kue, newItem: Kue): Boolean =
@@ -20,6 +20,8 @@ class ListKueAdapter :
             oldItem.cakeStock == newItem.cakeStock
     }) {
 
+    private var selectedItem: Kue? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DaftarKueViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_kue, parent, false)
         return DaftarKueViewHolder(view)
@@ -27,12 +29,27 @@ class ListKueAdapter :
 
     override fun onBindViewHolder(holder: DaftarKueViewHolder, position: Int) {
         val item = getItem(position)
+        holder.itemView.isSelected = (item == selectedItem)
+
+        holder.itemView.setOnClickListener {
+            selectedItem = item
+            notifyDataSetChanged()
+            kueItemClickListener.onTypeItemClicked(item)
+        }
+
         holder.tvCakeName.text = item.cakeName
         holder.tvCakePrice.text = item.cakePrice
     }
+
+    fun getSelectedItem(): Kue? = selectedItem
+
 }
 
 class DaftarKueViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val tvCakeName: TextView = itemView.findViewById(R.id.tvCakeName)
     val tvCakePrice: TextView = itemView.findViewById(R.id.tvCakePrice)
+}
+
+interface KueItemClickListener {
+    fun onTypeItemClicked(selectedItem: Kue)
 }
