@@ -13,16 +13,16 @@ interface PembayaranDao {
     fun getAll(): List<Pembayaran>
 
     @Query("SELECT * FROM Pembayaran WHERE Id_pembayaran IN (:pembayaranIds)")
-    fun loadAllByIds(pembayaranIds: IntArray): List<Kue>
+    fun loadAllByIds(pembayaranIds: IntArray): List<Pembayaran>
 
     @Query(
         "SELECT * FROM Pembayaran WHERE Id_customer = :customerId"
     )
-    fun findByIdCustomer(customerId: String): List<Kue>
+    fun findByIdCustomer(customerId: String): List<Pembayaran>
 
     @Insert
-    fun insertAll(vararg kue: Kue)
+    fun insertAll(vararg pembayaran: Pembayaran)
 
     @Delete
-    fun delete(kue: Kue)
+    fun delete(pembayaran: Pembayaran)
 }

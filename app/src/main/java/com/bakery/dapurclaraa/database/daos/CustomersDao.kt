@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.bakery.dapurclaraa.database.objects.Admin
 import com.bakery.dapurclaraa.database.objects.Customers
 
 @Dao
@@ -16,7 +17,12 @@ interface CustomersDao {
 
     @Query(
         "SELECT * FROM Customers WHERE Nama_cust LIKE :name LIMIT 1")
-    fun findByName(name: String): Customers
+    fun findByName(name: String): Customers?
+
+    @Query(
+        "SELECT * FROM Customers WHERE Nama_cust LIKE :name AND Password LIKE :pass LIMIT 1"
+    )
+    fun validateCustomer(name: String, pass: String): Customers?
 
     @Insert
     fun insertAll(vararg customers: Customers)

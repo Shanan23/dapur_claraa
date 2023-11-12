@@ -22,11 +22,11 @@ interface AdminDao {
     @Query(
         "SELECT * FROM Admin WHERE Username LIKE :name AND Password LIKE :pass LIMIT 1"
     )
-    fun validateAdmin(name: String, pass: String): Admin
-
-    @Insert
-    fun insertAll(vararg admin: Admin)
+    fun validateAdmin(name: String, pass: String): Admin?
 
     @Delete
     fun delete(admin: Admin)
+
+    @Insert
+    fun insert(admin: Admin)
 }

@@ -16,7 +16,7 @@ interface KueDao {
 
     @Query(
         "SELECT * FROM Kue WHERE Nama_kue LIKE :name LIMIT 1")
-    fun findByName(name: String): Kue
+    fun findByName(name: String): Kue?
 
     @Insert
     fun insertAll(vararg kue: Kue)

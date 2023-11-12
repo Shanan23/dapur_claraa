@@ -1,9 +1,21 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.DapurClaraa" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="Theme.DapurClaraa" parent="Base.Theme.DapurClaraa" />
+
+    <style name="Theme.DapurClaraa.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.DapurClaraa.AppBarOverlay" parent="Theme.DapurClaraa.NoActionBar" />
+
+    <style name="Theme.DapurClaraa.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -16,6 +16,7 @@ class SplashActivity : AppCompatActivity() {
 
         tvSplashVersion = findViewById(R.id.tvSplashVersion)
 
+
         // Create an Intent to start the target activity
         val targetActivityIntent = Intent(this, LoginActivity::class.java)
 

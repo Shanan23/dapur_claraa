@@ -1,0 +1,235 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "24c1d5808933be881308a78b3ffb09e4",
+    "entities": [
+      {
+        "tableName": "Admin",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Id_admin` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Username` TEXT NOT NULL DEFAULT '', `Password` TEXT NOT NULL DEFAULT '')",
+        "fields": [
+          {
+            "fieldPath": "customerId",
+            "columnName": "Id_admin",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "customerName",
+            "columnName": "Username",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "customerPhone",
+            "columnName": "Password",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "Id_admin"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Customers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Id_customer` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Nama_cust` TEXT NOT NULL DEFAULT '', `NoHp` TEXT NOT NULL DEFAULT '', `Alamat` TEXT NOT NULL DEFAULT '', `Password` TEXT NOT NULL DEFAULT '')",
+        "fields": [
+          {
+            "fieldPath": "customerId",
+            "columnName": "Id_customer",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "customerName",
+            "columnName": "Nama_cust",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "customerPhone",
+            "columnName": "NoHp",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "customerAddress",
+            "columnName": "Alamat",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "customerPassword",
+            "columnName": "Password",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "Id_customer"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Kue",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Id_kue` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Id_pembayaran` INTEGER NOT NULL, `Id_customer` INTEGER NOT NULL, `Jenis_kue` TEXT NOT NULL DEFAULT '', `Nama_kue` TEXT NOT NULL DEFAULT '', `Harga_kue` TEXT NOT NULL DEFAULT '', `Stok_kue` TEXT NOT NULL DEFAULT '', `GambarKue` BLOB, `Ongkir_kue` INTEGER NOT NULL, `Ukuran_kue` TEXT NOT NULL DEFAULT '')",
+        "fields": [
+          {
+            "fieldPath": "cakeId",
+            "columnName": "Id_kue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionId",
+            "columnName": "Id_pembayaran",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "customerId",
+            "columnName": "Id_customer",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cakeType",
+            "columnName": "Jenis_kue",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "cakeName",
+            "columnName": "Nama_kue",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "cakePrice",
+            "columnName": "Harga_kue",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "cakeStock",
+            "columnName": "Stok_kue",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "GambarKue",
+            "affinity": "BLOB",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cakeDeliveryCost",
+            "columnName": "Ongkir_kue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cakeSize",
+            "columnName": "Ukuran_kue",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "Id_kue"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Pembayaran",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Id_pembayaran` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Id_customer` INTEGER NOT NULL, `Id_kue` INTEGER NOT NULL, `Alamat` TEXT NOT NULL DEFAULT '', `Nohp` TEXT NOT NULL DEFAULT '', `waktu_dan_tanggal` TEXT NOT NULL DEFAULT '', `Ongkir_kue` TEXT NOT NULL DEFAULT '')",
+        "fields": [
+          {
+            "fieldPath": "transactionId",
+            "columnName": "Id_pembayaran",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "customerId",
+            "columnName": "Id_customer",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cakeId",
+            "columnName": "Id_kue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionAddress",
+            "columnName": "Alamat",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "transactionPhone",
+            "columnName": "Nohp",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "transactionDate",
+            "columnName": "waktu_dan_tanggal",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "transactionDeliveryCost",
+            "columnName": "Ongkir_kue",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "Id_pembayaran"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '24c1d5808933be881308a78b3ffb09e4')"
+    ]
+  }
+}
