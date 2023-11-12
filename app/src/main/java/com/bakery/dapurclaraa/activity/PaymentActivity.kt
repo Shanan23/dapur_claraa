@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView
 import com.bakery.dapurclaraa.R
 import com.bakery.dapurclaraa.database.objects.Customers
 import com.bakery.dapurclaraa.database.objects.Pembayaran
+import com.bakery.dapurclaraa.helper.AlertDialogHelper
 import com.bakery.dapurclaraa.helper.SharedPreferencesHelper
 import com.bakery.dapurclaraa.viewmodels.TransactionViewModel
 import com.google.gson.Gson
@@ -22,6 +23,7 @@ import java.io.ByteArrayOutputStream
 
 class PaymentActivity : AppCompatActivity() {
 
+    private lateinit var alertDialogHelper: AlertDialogHelper
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private var payObj: Pembayaran = Pembayaran(image = null)
     private var payJson: String = ""
@@ -72,6 +74,8 @@ class PaymentActivity : AppCompatActivity() {
         ivGallery.setOnClickListener {
             pickImageFromGallery()
         }
+        alertDialogHelper = AlertDialogHelper(this)
+
 
         cvBtnOrder.setOnClickListener {
             if (selectedImage != null) {
@@ -82,6 +86,11 @@ class PaymentActivity : AppCompatActivity() {
                 transactionViewModel.insertPembayaran(payObj)
 
                 startActivity(toMenuActivity)
+            } else {
+                alertDialogHelper.showAlertDialog(
+                    "Konfirmasi gagal",
+                    "Silakan upload bukti pembayaran"
+                )
             }
         }
 
