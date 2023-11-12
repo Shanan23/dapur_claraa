@@ -1,20 +1,26 @@
-package com.bakery.dapurclaraa
+package com.bakery.dapurclaraa.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.cardview.widget.CardView
+import com.bakery.dapurclaraa.R
 import com.bakery.dapurclaraa.database.DapurClaraaDB
 import com.bakery.dapurclaraa.database.objects.Admin
 import com.bakery.dapurclaraa.helper.AlertDialogHelper
 import com.bakery.dapurclaraa.helper.SharedPreferencesHelper
+import com.bakery.dapurclaraa.helper.Utils
 import com.bakery.dapurclaraa.viewmodels.AdminViewModel
 import com.bakery.dapurclaraa.viewmodels.CustomerViewModel
 import com.google.android.material.textfield.TextInputEditText
 
 class LoginActivity : AppCompatActivity() {
+    private val TAG: String = "LoginActivity"
     private lateinit var admin: Admin
     private lateinit var alertDialogHelper: AlertDialogHelper
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
@@ -23,6 +29,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var tieLoginPassword: TextInputEditText
     private lateinit var switchAdmin: SwitchCompat
     private lateinit var cvBtnLogin: CardView
+    private lateinit var tvLoginVersion: TextView
+    private lateinit var tvToRegister: TextView
     private val adminViewModel: AdminViewModel by viewModels()
     private val customerViewModel: CustomerViewModel by viewModels()
 
@@ -34,9 +42,20 @@ class LoginActivity : AppCompatActivity() {
         tieLoginUsername = findViewById(R.id.tieLoginUsername)
         tieLoginPassword = findViewById(R.id.tieLoginPassword)
         switchAdmin = findViewById(R.id.switchAdmin)
-        cvBtnLogin = findViewById(R.id.cvBtnLogin)
+        cvBtnLogin = findViewById(R.id.cvBtnBack)
+        tvLoginVersion = findViewById(R.id.tvLoginVersion)
+        tvToRegister = findViewById(R.id.tvToRegister)
+
+        val version = Utils().getVersionName(this)
+        tvLoginVersion.text = getString(R.string.version, version)
 
         dbConnection = DapurClaraaDB.getDatabase(applicationContext)
+        val toRegisterActivity = Intent(this, RegisterActivity::class.java)
+        val toMenuActivity = Intent(this, MenuActivity::class.java)
+
+        tvToRegister.setOnClickListener {
+            startActivity(toRegisterActivity)
+        }
 
         sharedPreferencesHelper = SharedPreferencesHelper(applicationContext)
         alertDialogHelper = AlertDialogHelper(this)
@@ -73,6 +92,8 @@ class LoginActivity : AppCompatActivity() {
                 sharedPreferencesHelper.username = admin.adminName
                 sharedPreferencesHelper.isAdmin = true
                 sharedPreferencesHelper.isLoggedIn = true
+
+
             } else {
                 alertDialogHelper.showAlertDialog(
                     "Login gagal", "User tidak ditemukan"
@@ -88,9 +109,15 @@ class LoginActivity : AppCompatActivity() {
                 sharedPreferencesHelper.username = customer.customerName
                 sharedPreferencesHelper.isAdmin = false
                 sharedPreferencesHelper.isLoggedIn = true
+
+                Log.d(TAG, "Login success ${customer.customerName}")
+
+                startActivity(toMenuActivity)
             } else {
                 alertDialogHelper.showAlertDialog("Login gagal", "User tidak ditemukan")
             }
         }
+
+
     }
 }

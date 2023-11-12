@@ -26,7 +26,7 @@ class CustomerViewModel : ViewModel() {
         viewModelScope.launch {
             CustomerRepository.customerFlow.collect {
                 _customer.value = it
-                Log.d(TAG, "new _admin -> $it")
+                Log.d(TAG, "new _customer -> $it")
             }
         }
     }
@@ -36,6 +36,19 @@ class CustomerViewModel : ViewModel() {
             try {
                 withContext(Dispatchers.IO) {
                     CustomerRepository.validateCustomer(name, pass)
+                }
+            } catch (e: Exception) {
+                // Handle exceptions if needed
+                Log.e("YourViewModel", "Error validateAdmin", e)
+            }
+        }
+    }
+
+    fun insertCustomer(customers: Customers) {
+        viewModelScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    CustomerRepository.insert(customers)
                 }
             } catch (e: Exception) {
                 // Handle exceptions if needed
