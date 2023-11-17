@@ -3,12 +3,14 @@ package com.bakery.dapurclaraa.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bakery.dapurclaraa.R
 import com.bakery.dapurclaraa.database.objects.Kue
+import com.bakery.dapurclaraa.helper.Utils
 
 class ListKueAdapter(private val kueItemClickListener: KueItemClickListener) :
     ListAdapter<Kue, DaftarKueViewHolder>(object : DiffUtil.ItemCallback<Kue>() {
@@ -39,6 +41,9 @@ class ListKueAdapter(private val kueItemClickListener: KueItemClickListener) :
 
         holder.tvCakeName.text = item.cakeName
         holder.tvCakePrice.text = item.cakePrice
+        var imgBitmap = item.image?.let { Utils().byteArrayToBitmap(it) }
+        holder.imageView.setImageBitmap(imgBitmap)
+
     }
 
     fun getSelectedItem(): Kue? = selectedItem
@@ -48,6 +53,7 @@ class ListKueAdapter(private val kueItemClickListener: KueItemClickListener) :
 class DaftarKueViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val tvCakeName: TextView = itemView.findViewById(R.id.tvCakeName)
     val tvCakePrice: TextView = itemView.findViewById(R.id.tvCakePrice)
+    val imageView: ImageView = itemView.findViewById(R.id.imageView)
 }
 
 interface KueItemClickListener {

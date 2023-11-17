@@ -29,13 +29,13 @@ class KueViewModel : ViewModel() {
         viewModelScope.launch {
             KueRepository.kueFlow.collect {
                 _kues.value = it
-                Log.d(TAG, "new _customer -> $it")
+                Log.d(TAG, "new _kue -> $it")
             }
         }
         viewModelScope.launch {
             KueRepository.typeFlow.collect {
                 _type.value = it
-                Log.d(TAG, "new _customer -> $it")
+                Log.d(TAG, "new _kue -> $it")
             }
         }
     }

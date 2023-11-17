@@ -12,6 +12,7 @@ import com.bakery.dapurclaraa.database.objects.Customers
 import com.bakery.dapurclaraa.database.objects.Kue
 import com.bakery.dapurclaraa.database.objects.Pembayaran
 import com.bakery.dapurclaraa.helper.SharedPreferencesHelper
+import com.bakery.dapurclaraa.helper.Utils
 import com.google.gson.Gson
 
 class DetailKueActivity : AppCompatActivity() {
@@ -45,6 +46,9 @@ class DetailKueActivity : AppCompatActivity() {
         var cakeObj = Gson().fromJson(cakeJson, Kue::class.java)
         var customers = Gson().fromJson(sharedPreferencesHelper.userObj, Customers::class.java)
 
+        var imgBitmap = cakeObj.image?.let { Utils().byteArrayToBitmap(it) }
+
+        ivCake.setImageBitmap(imgBitmap)
         tvCakeName.text = cakeObj.cakeName
         tvCakeType.text = getString(R.string.jenis, cakeObj.cakeType)
         tvCakePrice.text = getString(R.string.harga, cakeObj.cakePrice)

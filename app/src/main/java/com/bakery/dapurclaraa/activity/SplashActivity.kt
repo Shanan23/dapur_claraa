@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.speech.tts.UtteranceProgressListener
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -43,11 +44,21 @@ class SplashActivity : AppCompatActivity() {
         // Delay in milliseconds
         val delayMillis = 3000L
 
+        var dwImage = Utils().getDrawable(this, R.drawable.cake_image)
+        var dwToByteArray = Utils().drawableToByteArray(dwImage)
+
         handler.postDelayed({
             // Post the intent after the specified delay
             if (sharedPreferencesHelper.isLoggedIn) {
                 startActivity(toMenuActivity)
             } else {
+
+                var admin = Admin()
+                admin.adminName = "admin"
+                admin.adminPass = "12345"
+
+                adminViewModel.insertAdmin(admin)
+
                 val listKue = mutableListOf<Kue>()
                 for (i in 1..20) {
                     var kue: Kue
@@ -59,7 +70,7 @@ class SplashActivity : AppCompatActivity() {
                             cakePrice = "5000",
                             cakeStock = "$i",
                             // ... other properties with default or specific values
-                            image = null,  // assuming the image property is a ByteArray
+                            image = dwToByteArray,  // assuming the image property is a ByteArray
                             cakeDeliveryCost = i * 1000,  // example calculation for delivery cost
                             cakeSize = "Size $i"
                         )
@@ -71,7 +82,7 @@ class SplashActivity : AppCompatActivity() {
                             cakePrice = "6000",
                             cakeStock = "$i",
                             // ... other properties with default or specific values
-                            image = null,  // assuming the image property is a ByteArray
+                            image = dwToByteArray,  // assuming the image property is a ByteArray
                             cakeDeliveryCost = i * 1000,  // example calculation for delivery cost
                             cakeSize = "Size $i"
                         )
@@ -83,7 +94,7 @@ class SplashActivity : AppCompatActivity() {
                             cakePrice = "7000",
                             cakeStock = "$i",
                             // ... other properties with default or specific values
-                            image = null,  // assuming the image property is a ByteArray
+                            image = dwToByteArray,  // assuming the image property is a ByteArray
                             cakeDeliveryCost = i * 1000,  // example calculation for delivery cost
                             cakeSize = "Size $i"
                         )
@@ -95,7 +106,7 @@ class SplashActivity : AppCompatActivity() {
                             cakePrice = "8000",
                             cakeStock = "$i",
                             // ... other properties with default or specific values
-                            image = null,  // assuming the image property is a ByteArray
+                            image = dwToByteArray,  // assuming the image property is a ByteArray
                             cakeDeliveryCost = i * 1000,  // example calculation for delivery cost
                             cakeSize = "Size $i"
                         )
@@ -103,12 +114,6 @@ class SplashActivity : AppCompatActivity() {
                     listKue.add(kue)
 
                 }
-
-                var admin = Admin()
-                admin.adminName = "admin"
-                admin.adminPass = "12345"
-
-                adminViewModel.insertAdmin(admin)
 
                 kueViewModel.loadAllKue()
 
